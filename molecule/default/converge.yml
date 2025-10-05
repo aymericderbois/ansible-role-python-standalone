@@ -1,0 +1,39 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Update apt cache.
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 600
+      changed_when: false
+      when: ansible_os_family == 'Debian'
+
+  roles:
+    - role: aymericderbois.python_standalone
+      vars:
+        python_standalone_owner: root
+        python_standalone_group: root
+
+  post_tasks:
+    - name: Verify Python is installed
+      ansible.builtin.stat:
+        path: "/opt/python/{{ python_standalone_version }}/bin/python3"
+      register: python_binary
+
+    - name: Assert Python binary exists
+      ansible.builtin.assert:
+        that:
+          - python_binary.stat.exists
+        fail_msg: "Python binary not found"
+
+    - name: Verify Python version
+      ansible.builtin.command: "/opt/python/{{ python_standalone_version }}/bin/python3 --version"
+      register: python_version_check
+      changed_when: false
+
+    - name: Display Python version
+      ansible.builtin.debug:
+        var: python_version_check.stdout

@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  role_name: python_standalone
+  namespace: aymericderbois
+  author: aymericderbois
+  description: Install Python via python-build-standalone for Debian systems
+  company: "aymericderbois"
+  license: MIT
+
+  min_ansible_version: "2.9"
+
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+        - bookworm
+
+  galaxy_tags:
+    - python
+    - standalone
+    - pythonbuildstandalone
+    - development
+    - tools
+    - debian
+    - astral
+
+dependencies: []

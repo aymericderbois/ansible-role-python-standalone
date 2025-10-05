@@ -1,0 +1,51 @@
+---
+- name: Install zstd for archive extraction
+  become: true
+  ansible.builtin.package:
+    name: zstd
+    state: present
+
+- name: Create python folder
+  become: true
+  ansible.builtin.file:
+    path: "/opt/python/{{ python_standalone_version }}"
+    state: directory
+    mode: "{{ python_standalone_dir_mode }}"
+    owner: "{{ python_standalone_owner }}"
+    group: "{{ python_standalone_group }}"
+    recurse: true
+  register: python_folder
+
+- name: Defined python Download URL
+  ansible.builtin.set_fact:
+    python_download_file: >-
+      cpython-{{ python_standalone_version }}+{{ python_standalone_release }}-{{ python_standalone_arch }}-{{ python_standalone_build_type }}.tar.zst
+
+- name: Unarchive python binaries  # noqa: no-handler
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ python_standalone_base_url }}/{{ python_standalone_release }}/{{ python_download_file }}"
+    remote_src: true
+    dest: "/opt/python/{{ python_standalone_version }}"
+    mode: "{{ python_standalone_dir_mode }}"
+    owner: "{{ python_standalone_owner }}"
+    group: "{{ python_standalone_group }}"
+  when: python_folder is changed
+
+- name: Copy python folders in appropriate folder  # noqa: no-handler
+  become: true
+  ansible.builtin.copy:
+    src: "/opt/python/{{ python_standalone_version }}/python/install/"
+    dest: "/opt/python/{{ python_standalone_version }}"
+    remote_src: true
+    mode: "{{ python_standalone_dir_mode }}"
+    owner: "{{ python_standalone_owner }}"
+    group: "{{ python_standalone_group }}"
+  when: python_folder is changed
+
+- name: Cleanup temporary python extraction folder  # noqa: no-handler
+  become: true
+  ansible.builtin.file:
+    path: "/opt/python/{{ python_standalone_version }}/python"
+    state: absent
+  when: python_folder is changed
