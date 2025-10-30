@@ -19,12 +19,16 @@
 - name: Defined python Download URL
   ansible.builtin.set_fact:
     python_download_file: >-
-      cpython-{{ python_standalone_version }}+{{ python_standalone_release }}-{{ python_standalone_arch }}-{{ python_standalone_build_type }}.tar.zst
+      cpython-{{ python_standalone_version }}+{{
+      python_standalone_release }}-{{ python_standalone_arch }}-{{
+      python_standalone_build_type }}.tar.zst
 
 - name: Unarchive python binaries  # noqa: no-handler
   become: true
   ansible.builtin.unarchive:
-    src: "{{ python_standalone_base_url }}/{{ python_standalone_release }}/{{ python_download_file }}"
+    src: >-
+      {{ python_standalone_base_url }}/{{ python_standalone_release }}/{{
+      python_download_file }}
     remote_src: true
     dest: "/opt/python/{{ python_standalone_version }}"
     mode: "{{ python_standalone_dir_mode }}"

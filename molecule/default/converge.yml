@@ -30,7 +30,8 @@
         fail_msg: "Python binary not found"
 
     - name: Verify Python version
-      ansible.builtin.command: "/opt/python/{{ python_standalone_version }}/bin/python3 --version"
+      ansible.builtin.command: >-
+        /opt/python/{{ python_standalone_version }}/bin/python3 --version
       register: python_version_check
       changed_when: false
 

@@ -9,12 +9,7 @@ name: CI
   schedule:
     - cron: "0 3 * * 5"
 
-defaults:
-  run:
-    working-directory: 'aymericderbois.python_standalone'
-
 jobs:
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -22,7 +17,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v4
         with:
-          path: 'aymericderbois.python_standalone'
+          path: 'aymericderbois.uv'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
@@ -40,6 +35,7 @@ jobs:
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
+    needs: lint
     strategy:
       fail-fast: ${{ !contains(github.event_name, 'pull_request') }}
       matrix:
@@ -51,7 +47,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v4
         with:
-          path: 'aymericderbois.python_standalone'
+          path: 'aymericderbois.uv'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5

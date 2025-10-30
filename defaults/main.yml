@@ -12,7 +12,8 @@ python_standalone_arch: "x86_64-unknown-linux-gnu"
 python_standalone_build_type: "pgo+lto-full"
 
 # URL de base pour le téléchargement (dépôt Astral)
-python_standalone_base_url: "https://github.com/astral-sh/python-build-standalone/releases/download"
+python_standalone_base_url: >-
+  https://github.com/astral-sh/python-build-standalone/releases/download
 
 # Utilisateur propriétaire de l'installation
 python_standalone_owner: "debian"
