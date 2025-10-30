@@ -1,3 +1,5 @@
-skip_list:
-  - 'yaml'
-  - 'role-name'
+---
+exclude_paths:
+  - .github/
+  - molecule/
+  - .venv/
