@@ -49,15 +49,15 @@ L'installation se fait dans
 
 ## Variables principales
 
-| Variable | Défaut | Description |
-|----------|--------|-------------|
-| `python_standalone_version` | `3.13.7` | Version Python |
-| `python_standalone_release` | `20250918` | Release PBS |
-| `python_standalone_arch` | `x86_64-unknown-linux-gnu` | Architecture |
-| `python_standalone_build_type` | `pgo+lto-full` | Type de build |
-| `python_standalone_owner` | `debian` | Utilisateur |
-| `python_standalone_group` | `debian` | Groupe |
-| `python_standalone_dir_mode` | `0755` | Permissions |
+| Variable                       | Défaut                     | Description    |
+|--------------------------------|----------------------------|----------------|
+| `python_standalone_version`    | `3.13.7`                   | Version Python |
+| `python_standalone_release`    | `20250918`                 | Release PBS    |
+| `python_standalone_arch`       | `x86_64-unknown-linux-gnu` | Architecture   |
+| `python_standalone_build_type` | `pgo+lto-full`             | Type de build  |
+| `python_standalone_owner`      | `debian`                   | Utilisateur    |
+| `python_standalone_group`      | `debian`                   | Groupe         |
+| `python_standalone_dir_mode`   | `0755`                     | Permissions    |
 
 Voir `defaults/main.yml` pour toutes les variables disponibles.
 

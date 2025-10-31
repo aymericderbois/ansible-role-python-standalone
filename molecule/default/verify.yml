@@ -1,0 +1,47 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Check if Python binary exists
+      ansible.builtin.stat:
+        path: "/opt/python/{{ python_standalone_version }}/bin/python3"
+      register: python_binary
+
+    - name: Assert Python binary exists
+      ansible.builtin.assert:
+        that:
+          - python_binary.stat.exists
+        fail_msg: "Python binary not found"
+        success_msg: "Python binary exists"
+
+    - name: Check Python version
+      ansible.builtin.command: >-
+        /opt/python/{{ python_standalone_version }}/bin/python3 --version
+      changed_when: false
+      register: python_version_check
+
+    - name: Display Python version
+      ansible.builtin.debug:
+        var: python_version_check.stdout
+
+    - name: Assert Python version matches expected
+      ansible.builtin.assert:
+        that:
+          - python_version_check.stdout is search(python_standalone_version)
+        fail_msg: "Python version does not match expected version"
+        success_msg: "Python version matches expected version"
+
+    - name: Check if Python installation directory exists
+      ansible.builtin.stat:
+        path: "/opt/python/{{ python_standalone_version }}"
+      register: python_dir
+
+    - name: Assert Python installation directory exists
+      ansible.builtin.assert:
+        that:
+          - python_dir.stat.exists
+          - python_dir.stat.isdir
+        fail_msg: "Python installation directory does not exist"
+        success_msg: "Python installation directory exists"

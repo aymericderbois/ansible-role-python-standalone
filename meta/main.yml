@@ -7,7 +7,7 @@ galaxy_info:
   company: "aymericderbois"
   license: MIT
 
-  min_ansible_version: "2.9"
+  min_ansible_version: "2.14"
 
   platforms:
     - name: Debian
