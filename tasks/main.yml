@@ -1,9 +1,11 @@
 ---
 - name: Install zstd for archive extraction
   become: true
-  ansible.builtin.package:
+  ansible.builtin.apt:
     name: zstd
     state: present
+    update_cache: true
+    cache_valid_time: 3600
 
 - name: Create python folder
   become: true
