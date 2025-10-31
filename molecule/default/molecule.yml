@@ -26,6 +26,18 @@ provisioner:
     defaults:
       callbacks_enabled: ansible.posix.profile_tasks
       deprecation_warnings: false
+  inventory:
+    group_vars:
+      all:
+        python_standalone_version: "3.13.7"
+        python_standalone_release: "20250918"
+        python_standalone_arch: "x86_64-unknown-linux-gnu"
+        python_standalone_build_type: "pgo+lto-full"
+        python_standalone_base_url: >-
+          https://github.com/astral-sh/python-build-standalone/releases/download
+        python_standalone_owner: "root"
+        python_standalone_group: "root"
+        python_standalone_dir_mode: "0755"
   env:
     ANSIBLE_ROLES_PATH: "${MOLECULE_PROJECT_DIRECTORY}/..:${ANSIBLE_ROLES_PATH}"
 
